@@ -69,7 +69,8 @@ exec ros -Q -L sbcl-bin -- $0 "$@"
                      "Please specify ASDF system as a first argument.~%")
              (uiop:quit 1))
            
-           (let* ((user-script (uiop:slurp-stream-forms *standard-input*))
+           (let* ((user-script (unless (interactive-stream-p *standard-input*)
+                                 (uiop:slurp-stream-forms *standard-input*)))
                   (result
                     (cond
                       (user-script
