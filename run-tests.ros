@@ -5,7 +5,8 @@ exec ros -Q -L sbcl-bin -- $0 "$@"
 |#
 (progn ;;init forms
   (ros:ensure-asdf)
-  #+quicklisp(ql:quickload '(trivial-backtrace)
+  #+quicklisp(ql:quickload '(trivial-backtrace
+                             cl-coveralls)
                            :silent t))
 
 (declaim (optimize (debug 3) (safety 3)
@@ -58,6 +59,12 @@ exec ros -Q -L sbcl-bin -- $0 "$@"
             (or system
                 ""))
 
+    ;; Without this random state initialization
+    ;; subsequent runs of the script will generate the same
+    ;; "random" temprorary directory for coverage data:
+    (setf *random-state*
+          (make-random-state t))
+
     (unwind-protect
          (handler-bind
              ((error (lambda (condition)
@@ -72,19 +79,20 @@ exec ros -Q -L sbcl-bin -- $0 "$@"
            (let* ((user-script (unless (interactive-stream-p *standard-input*)
                                  (uiop:slurp-stream-forms *standard-input*)))
                   (result
-                    (cond
-                      (user-script
-                       (loop with form-results
-                             for form in user-script
-                             do (setf form-results
-                                      (eval form))
-                             finally (return form-results)))
-                      ;; default tests runner
-                      (t 
-                       (run-tests system)))))
+                    (cl-coveralls:with-coveralls (:exclude (list ".qlot/"))
+                      (cond
+                        (user-script
+                         (loop with form-results
+                               for form in user-script
+                               do (setf form-results
+                                        (eval form))
+                               finally (return form-results)))
+                        ;; default tests runner
+                        (t 
+                         (run-tests system))))))
              (unless result
                (uiop:quit 2))))
-      (format t "::endgroup::~%"))))
+      (format t "~&::endgroup::~%"))))
 
 
 ;;; vim: set ft=lisp lisp:

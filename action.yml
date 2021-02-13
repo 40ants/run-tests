@@ -7,13 +7,23 @@ inputs:
   run-tests:
     description: A command to run tests
     required: false
+  coveralls:
+    description: Upload code coverage results to Coveralls
+    required: false
 
 runs:
   using: composite
   steps:
+    - name: Install Coveralls
+      shell: bash
+      run: |
+        qlot exec ros install svetlyak40wt/cl-coveralls/github-actions
+
     - name: Run Tests
       shell: bash
       run: |
         ${{ github.action_path }}/run-tests.ros ${{ inputs.asdf-system }} <<EOF
         ${{ inputs.run-tests }}
         EOF
+      env:
+        COVERALLS: "${{ inputs.coveralls }}"
