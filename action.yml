@@ -7,8 +7,8 @@ inputs:
   run-tests:
     description: A command to run tests
     required: false
-  coveralls:
-    description: Upload code coverage results to Coveralls
+  coveralls-repo-token:
+    description: Set this token to upload code coverage results to Coveralls
     required: false
 
 runs:
@@ -26,4 +26,5 @@ runs:
         ${{ inputs.run-tests }}
         EOF
       env:
-        COVERALLS: "${{ inputs.coveralls }}"
+        COVERALLS: "${{ inputs.coveralls-repo-token }}"
+        COVERALLS_REPO_TOKEN: "${{ inputs.coveralls-repo-token }}"
