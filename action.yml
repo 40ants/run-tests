@@ -5,7 +5,7 @@ inputs:
     description: 'ASDF system to install and test'
     required: true
   run-tests:
-    description: A command to run tests
+    description: A Lisp code to run tests.
     required: false
   coveralls-token:
     description: Set this token to upload code coverage results to Coveralls
