@@ -24,10 +24,6 @@ runs:
         qlot exec ros install svetlyak40wt/cl-coveralls/github-actions
         echo '::endgroup::'
 
-    - name: Inspect env
-      shell: bash
-      run: env | sort
-
     - name: Run Tests
       shell: bash
       run: |
@@ -35,5 +31,4 @@ runs:
         ${{ inputs.run-tests }}
         EOF
       env:
-        COVERALLS: "${{ inputs.coveralls-token }}"
         COVERALLS_REPO_TOKEN: "${{ inputs.coveralls-token }}"

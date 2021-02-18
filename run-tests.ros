@@ -78,18 +78,36 @@ exec ros -Q -- $0 "$@"
            
            (let* ((user-script (unless (interactive-stream-p *standard-input*)
                                  (uiop:slurp-stream-forms *standard-input*)))
-                  (result
-                    (cl-coveralls:with-coveralls (:exclude (list ".qlot/"))
+                  (coveralls-repo-token
+                    (let ((value (uiop:getenv "COVERALLS_REPO_TOKEN")))
                       (cond
-                        (user-script
-                         (loop with form-results
-                               for form in user-script
-                               do (setf form-results
-                                        (eval form))
-                               finally (return form-results)))
-                        ;; default tests runner
-                        (t 
-                         (run-tests system))))))
+                        ((or (null value)
+                             ;; When using GH Actions expressions like:
+                             ;; ${{ matrix.lisp == 'sbcl-bin' && secrets.github_token }}
+                             ;; the value will be 'false' for any lisp other than 'sbcl-bin'
+                             (string-equal value "false")
+                             (string-equal value ""))
+                         nil)
+                        (t value))))
+                  (result
+                    (progn
+                      (when coveralls-repo-token
+                        ;; This will enable data collection
+                        ;; inside with-coveralls:
+                        (setf (uiop:getenv "COVERALLS")
+                              "1"))
+                      
+                      (cl-coveralls:with-coveralls (:exclude (list ".qlot/"))
+                        (cond
+                          (user-script
+                           (loop with form-results
+                                 for form in user-script
+                                 do (setf form-results
+                                          (eval form))
+                                 finally (return form-results)))
+                          ;; default tests runner
+                          (t
+                           (run-tests system)))))))
              (unless result
                (uiop:quit 2))))
       (format t "~&::endgroup::~%"))))
