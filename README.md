@@ -7,7 +7,8 @@
 - [1 What this action does for you?][f73c]
 - [2 A typical usage][ff56]
 - [3 Custom test runner][a208]
-- [4 Roadmap][278a]
+- [4 Publishing reports to Coveralls][ebf0]
+- [5 Roadmap][278a]
 
 ###### \[in package DOCS with nicknames DOCS/DOCS\]
 This is a Github Action can be used to run tests for any Common Lisp supporting `(asdf:test-system :my-system)`.
@@ -105,17 +106,37 @@ code to the action:
 ```
 
 
+<a id='x-28DOCS-3A-40COVERALLS-20MGL-PAX-MINIMAL-3ASECTION-29'></a>
+
+## 4 Publishing reports to Coveralls
+
+This action automates coverage collection and reporting. To publish report
+to the [Coveralls](https://coveralls.io/), pass your github token as
+a `coveralls-token` argument:
+
+```yaml
+- uses: 40ants/run-tests@v2
+  with:
+    asdf-system: cl-info
+    coveralls-token: ${{ secrets.github_token }}
+```
+
+Here is an example how your report on Coveralls can look like:
+
+https://coveralls.io/github/40ants/cl-info
+
 <a id='x-28DOCS-3A-40ROADMAP-20MGL-PAX-MINIMAL-3ASECTION-29'></a>
 
-## 4 Roadmap
+## 5 Roadmap
 
-- Support uploading code coverage reports to Coveralls and CodeCov.
+- Support uploading code coverage reports to CodeCov.
 
 - Vendor all dependencies, to make action more reliable and secure.
 
 
   [278a]: #x-28DOCS-3A-40ROADMAP-20MGL-PAX-MINIMAL-3ASECTION-29 "Roadmap"
   [a208]: #x-28DOCS-3A-40CUSTOM-TEST-RUNNER-20MGL-PAX-MINIMAL-3ASECTION-29 "Custom test runner"
+  [ebf0]: #x-28DOCS-3A-40COVERALLS-20MGL-PAX-MINIMAL-3ASECTION-29 "Publishing reports to Coveralls"
   [f73c]: #x-28DOCS-3A-40FEATURES-20MGL-PAX-MINIMAL-3ASECTION-29 "What this action does for you?"
   [ff56]: #x-28DOCS-3A-40TYPICAL-USAGE-20MGL-PAX-MINIMAL-3ASECTION-29 "A typical usage"
 
