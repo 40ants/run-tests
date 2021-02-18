@@ -96,6 +96,11 @@ exec ros -Q -- $0 "$@"
                         ;; inside with-coveralls:
                         (setf (uiop:getenv "COVERALLS")
                               "1"))
+
+                      (format t "~4%COVERALLS_REPO_TOKEN: ~A~%COVERALLS: ~A~%coveralls-repo-token: ~A~4%"
+                              (uiop:getenv "COVERALLS_REPO_TOKEN")
+                              (uiop:getenv "COVERALLS")
+                              coveralls-repo-token)
                       
                       (cl-coveralls:with-coveralls (:exclude (list ".qlot/"))
                         (cond
