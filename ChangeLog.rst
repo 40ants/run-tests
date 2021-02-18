@@ -2,6 +2,12 @@
  ChangeLog
 ===========
 
+2.1.0 (2021-02-18)
+==================
+
+Now it is possible to conditionally select if coverage
+report should be generated.
+
 2.0.1 (2021-02-18)
 ==================
 
