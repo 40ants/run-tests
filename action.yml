@@ -17,6 +17,9 @@ runs:
     - name: Install Coveralls
       shell: bash
       run: |
+        # Until this pull merged:
+        # https://github.com/fukamachi/cl-coveralls/pull/13
+        # we have to install from the branch "github-actions"
         qlot exec ros install svetlyak40wt/cl-coveralls/github-actions
 
     - name: Run Tests

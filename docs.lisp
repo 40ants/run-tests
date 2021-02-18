@@ -16,6 +16,7 @@ It should be used after the [setup-lisp](https://40ants.com/setup-lisp/) action.
   (@features section)
   (@typical-usage section)
   (@custom-test-runner section)
+  (@coveralls section)
   (@roadmap section))
 
 
@@ -107,8 +108,27 @@ code to the action:
 ")
 
 
+(defsection @coveralls (:title "Publishing reports to Coveralls")
+  "
+This action automates coverage collection and reporting. To publish report
+to the [Coveralls](https://coveralls.io/), pass your github token as
+a `coveralls-token` argument:
+
+```yaml
+- uses: 40ants/run-tests@v2
+  with:
+    asdf-system: cl-info
+    coveralls-token: ${{ secrets.github_token }}
+```
+
+Here is an example how your report on Coveralls can look like:
+
+https://coveralls.io/github/40ants/cl-info
+")
+
+
 (defsection @roadmap (:title "Roadmap")
   "
-- Support uploading code coverage reports to Coveralls and CodeCov.
+- Support uploading code coverage reports to CodeCov.
 - Vendor all dependencies, to make action more reliable and secure.
 ")
