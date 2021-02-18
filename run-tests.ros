@@ -79,7 +79,12 @@ exec ros -Q -- $0 "$@"
            (let* ((user-script (unless (interactive-stream-p *standard-input*)
                                  (uiop:slurp-stream-forms *standard-input*)))
                   (coveralls-repo-token
-                    (let ((value (uiop:getenv "COVERALLS_REPO_TOKEN")))
+                    (let* ((value (uiop:getenv "COVERALLS_REPO_TOKEN"))
+                           ;; Sometimes user might want to use multiline
+                           ;; YAML format to make expression more readable.
+                           ;; In this case the value might contain hanging
+                           ;; spaces and new-lines.
+                           (value (string-trim '(#\Newline #\Space) value)))
                       (cond
                         ((or (null value)
                              ;; When using GH Actions expressions like:
@@ -95,7 +100,10 @@ exec ros -Q -- $0 "$@"
                         ;; This will enable data collection
                         ;; inside with-coveralls:
                         (setf (uiop:getenv "COVERALLS")
-                              "1"))
+                              "1")
+                        ;; And we set this value back in its stripped form:
+                        (setf (uiop:getenv "COVERALLS_REPO_TOKEN")
+                              coveralls-repo-token))
 
                       (format t "~4%COVERALLS_REPO_TOKEN: ~A~%COVERALLS: ~A~%coveralls-repo-token: ~A~4%"
                               (uiop:getenv "COVERALLS_REPO_TOKEN")
