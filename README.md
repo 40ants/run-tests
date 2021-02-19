@@ -121,9 +121,28 @@ a `coveralls-token` argument:
     coveralls-token: ${{ secrets.github_token }}
 ```
 
+If you are using "matrix", then it is good idea to collect coverage report
+only on one matrix combination. To do this, use a logical expression which
+will check some variables and returns a token only if all of them are true:
+
+```yaml
+- uses: 40ants/run-tests@v2
+  with:
+    asdf-system: cl-info
+    coveralls-token: |
+      ${{ matrix.lisp == 'sbcl-bin' &&
+          matrix.os == 'ubuntu-latest' &&
+          matrix.quicklisp-dist == 'ultralisp' &&
+          secrets.github_token }}
+```
+
 Here is an example how your report on Coveralls can look like:
 
 https://coveralls.io/github/40ants/cl-info
+
+**Note**, that coverage reporting currently works only on SBCL and CCL 1.4.
+You can contribute support for other implementations to
+[cl-coveralls](https://github.com/fukamachi/cl-coveralls).
 
 <a id='x-28DOCS-3A-40ROADMAP-20MGL-PAX-MINIMAL-3ASECTION-29'></a>
 
