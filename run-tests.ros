@@ -5,9 +5,12 @@ exec ros -Q -- $0 "$@"
 |#
 (progn ;;init forms
   (ros:ensure-asdf)
-  #+quicklisp(ql:quickload '(trivial-backtrace
-                             cl-coveralls)
-                           :silent t))
+  #+quicklisp
+  (ql:quickload "trivial-backtrace"
+                :silent t)
+  #+(or sbcl ccl)
+  (ql:quickload "cl-coveralls"
+                :silent t))
 
 (declaim (optimize (debug 3) (safety 3)
                    (speed 0) (space 0)))
@@ -51,6 +54,15 @@ exec ros -Q -- $0 "$@"
                   :silent t)
     ;; ASDF:TEST-SYSTEM always returns T
     (asdf:test-system test-system-name)))
+
+
+(defmacro with-coveralls ((&key exclude) &body body)
+  #+(or sbcl ccl)
+  `(cl-coveralls:with-coveralls (:exclude ,exclude)
+     ,@body)
+  #-(or sbcl ccl)
+  `(progn
+     ,@body))
 
 
 (defun main (&rest args)
@@ -110,7 +122,7 @@ exec ros -Q -- $0 "$@"
                               (uiop:getenv "COVERALLS")
                               coveralls-repo-token)
                       
-                      (cl-coveralls:with-coveralls (:exclude (list ".qlot/"))
+                      (with-coveralls (:exclude (list ".qlot/"))
                         (cond
                           (user-script
                            (loop with form-results

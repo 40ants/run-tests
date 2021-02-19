@@ -2,6 +2,12 @@
  ChangeLog
 ===========
 
+2.1.1 (2021-02-19)
+==================
+
+Fixed test running on CLISP where cl-coveralls installation
+fails with error: "CFFI requires CLISP compiled with dynamic FFI support."
+
 2.1.0 (2021-02-18)
 ==================
 
