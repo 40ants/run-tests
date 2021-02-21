@@ -60,7 +60,7 @@ jobs:
       - uses: 40ants/setup-lisp@v1
         with:
           asdf-system: cl-info
-      - uses: 40ants/run-tests@v1
+      - uses: 40ants/run-tests@v2
         with:
           asdf-system: cl-info
 ```
@@ -68,7 +68,7 @@ jobs:
 The part, corresponding to an action call is:
 
 ```yaml
-- uses: 40ants/run-tests@v1
+- uses: 40ants/run-tests@v2
   with:
     asdf-system: cl-info
 ```
@@ -95,7 +95,7 @@ Sometimes you might want to use something special instead of
 code to the action:
 
 ```
-- uses: 40ants/run-tests@v1
+- uses: 40ants/run-tests@v2
   with:
     asdf-system: cl-info
     run-tests: |
