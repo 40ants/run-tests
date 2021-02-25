@@ -2,6 +2,12 @@
  ChangeLog
 ===========
 
+2.1.2 (2021-02-25)
+==================
+
+Run tests under the qlot.
+This fixes test running when Roswell and Qlot are restored from cache.
+
 2.1.1 (2021-02-19)
 ==================
 

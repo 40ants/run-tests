@@ -27,7 +27,7 @@ runs:
     - name: Run Tests
       shell: bash
       run: |
-        ${{ github.action_path }}/run-tests.ros ${{ inputs.asdf-system }} <<EOF
+        qlot exec ${{ github.action_path }}/run-tests.ros ${{ inputs.asdf-system }} <<EOF
         ${{ inputs.run-tests }}
         EOF
       env:
