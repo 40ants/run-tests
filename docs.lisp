@@ -1,13 +1,14 @@
 (defpackage #:docs
   (:use #:cl)
   (:nicknames #:docs/docs)
-  (:import-from #:mgl-pax-minimal
-                #:defsection
-                #:section))
+  (:import-from #:40ants-doc
+                #:defsection))
 (in-package docs)
 
 
-(defsection @index (:title "GitHub Action to Run Tests for a Common Lisp Library")
+(defsection @index (:title "GitHub Action to Run Tests for a Common Lisp Library"
+                    :ignore-words ("SBCL"
+                                   "CCL"))
   "
 This is a Github Action can be used to run tests for any Common Lisp supporting `(asdf:test-system :my-system)`.
 
