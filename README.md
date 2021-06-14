@@ -140,7 +140,7 @@ Here is an example how your report on Coveralls can look like:
 
 https://coveralls.io/github/40ants/cl-info
 
-**Note**, that coverage reporting currently works only on SBCL and CCL 1.4.
+**Note**, that coverage reporting currently works only on `SBCL` and `CCL` 1.4.
 You can contribute support for other implementations to
 [cl-coveralls](https://github.com/fukamachi/cl-coveralls).
 
