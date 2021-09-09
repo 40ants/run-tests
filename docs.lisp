@@ -5,6 +5,8 @@
                 #:defsection-copy)
   (:import-from #:docs/changelog
                 #:@changelog)
+  (:import-from #:docs-config
+                #:docs-config)
   (:export #:@index
            #:@readme
            #:@changelog))
