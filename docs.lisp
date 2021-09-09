@@ -11,6 +11,16 @@
 (in-package docs/docs)
 
 
+(defmethod docs-config ((system (eql (asdf:find-system "docs"))))
+  ;; 40ANTS-DOC-THEME-40ANTS system will bring
+  ;; as dependency a full 40ANTS-DOC but we don't want
+  ;; unnecessary dependencies here:
+  (ql:quickload :40ants-doc-theme-40ants)
+  (list :theme
+        (find-symbol "40ANTS-THEME"
+                     (find-package "40ANTS-DOC-THEME-40ANTS"))))
+
+
 (defsection @index (:title "GitHub Action to Run Tests for a Common Lisp Library"
                     :ignore-words ("SBCL"
                                    "CCL"
