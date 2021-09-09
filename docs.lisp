@@ -1,14 +1,20 @@
-(defpackage #:docs
+(defpackage #:docs/docs
   (:use #:cl)
-  (:nicknames #:docs/docs)
   (:import-from #:40ants-doc
-                #:defsection))
-(in-package docs)
+                #:defsection
+                #:defsection-copy)
+  (:import-from #:docs/changelog
+                #:@changelog)
+  (:export #:@index
+           #:@readme
+           #:@changelog))
+(in-package docs/docs)
 
 
 (defsection @index (:title "GitHub Action to Run Tests for a Common Lisp Library"
                     :ignore-words ("SBCL"
-                                   "CCL"))
+                                   "CCL"
+                                   "ASDF"))
   "
 This is a Github Action can be used to run tests for any Common Lisp supporting `(asdf:test-system :my-system)`.
 
@@ -19,6 +25,9 @@ It should be used after the [setup-lisp](https://40ants.com/setup-lisp/) action.
   (@custom-test-runner section)
   (@coveralls section)
   (@roadmap section))
+
+
+(defsection-copy @readme @index)
 
 
 (defsection @features (:title "What this action does for you?")

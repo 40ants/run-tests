@@ -1,34 +1,24 @@
-<a id='x-28DOCS-3A-40INDEX-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29'></a>
+<a id="x-28DOCS-2FDOCS-3A-40README-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
 # GitHub Action to Run Tests for a Common Lisp Library
 
-## Table of Contents
-
-- [1 What this action does for you?][a4be]
-- [2 A typical usage][3b34]
-- [3 Custom test runner][edba]
-- [4 Publishing reports to Coveralls][ae7a]
-- [5 Roadmap][0187]
-
-###### \[in package DOCS with nicknames DOCS/DOCS\]
 This is a Github Action can be used to run tests for any Common Lisp supporting `(asdf:test-system :my-system)`.
 
-It should be used after the [setup-lisp](https://40ants.com/setup-lisp/) action.
+It should be used after the [setup-lisp][8de1] action.
 
-<a id='x-28DOCS-3A-40FEATURES-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29'></a>
+<a id="x-28DOCS-2FDOCS-3A-3A-40FEATURES-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
-## 1 What this action does for you?
+## What this action does for you?
 
-- It runs (asdf:test-system :the-system-name) by default.
+* It runs (asdf:test-system :the-system-name) by default.
 
-- But you can provide your own lisp code.
+* But you can provide your own lisp code.
 
-- It automatically searches a test system name if it is present.
+* It automatically searches a test system name if it is present.
 
+<a id="x-28DOCS-2FDOCS-3A-3A-40TYPICAL-USAGE-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
-<a id='x-28DOCS-3A-40TYPICAL-USAGE-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29'></a>
-
-## 2 A typical usage
+## A typical usage
 
 Here is how a minimal GitHub Workflow might look like:
 
@@ -64,7 +54,6 @@ jobs:
         with:
           asdf-system: cl-info
 ```
-
 The part, corresponding to an action call is:
 
 ```yaml
@@ -72,7 +61,6 @@ The part, corresponding to an action call is:
   with:
     asdf-system: cl-info
 ```
-
 Here we provided a system name `cl-info`, but
 action is smart enough to detect that really
 there is a separate `cl-info-test` `ASDF` system.
@@ -82,13 +70,13 @@ will check `${asdf-system}-test`, `${asdf-system}-tests`,
 `${asdf-system}/test` and `${asdf-system}/tests`. And if none
 of them found - fall back to `${asdf-system}`.
 
-**Please, note, that `(asdf:test-system :your-system-name)`
-should signal error in case if some tests were failed.** Only
+Please, note, that `(asdf:test-system :your-system-name)`
+should signal error in case if some tests were failed. Only
 in this case action will exit with error code.
 
-<a id='x-28DOCS-3A-40CUSTOM-TEST-RUNNER-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29'></a>
+<a id="x-28DOCS-2FDOCS-3A-3A-40CUSTOM-TEST-RUNNER-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
-## 3 Custom test runner
+## Custom test runner
 
 Sometimes you might want to use something special instead of
 `(asdf:test-system :your-system-name)`. You can pass any lisp
@@ -104,14 +92,12 @@ code to the action:
       (unless (rove:run :cl-info-test)
          (error "Tests failed"))
 ```
+<a id="x-28DOCS-2FDOCS-3A-3A-40COVERALLS-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
-
-<a id='x-28DOCS-3A-40COVERALLS-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29'></a>
-
-## 4 Publishing reports to Coveralls
+## Publishing reports to Coveralls
 
 This action automates coverage collection and reporting. To publish report
-to the [Coveralls](https://coveralls.io/), pass your github token as
+to the [Coveralls][b60c], pass your github token as
 a `coveralls-token` argument:
 
 ```yaml
@@ -120,7 +106,6 @@ a `coveralls-token` argument:
     asdf-system: cl-info
     coveralls-token: ${{ secrets.github_token }}
 ```
-
 If you are using "matrix", then it is good idea to collect coverage report
 only on one matrix combination. To do this, use a logical expression which
 will check some variables and returns a token only if all of them are true:
@@ -135,29 +120,26 @@ will check some variables and returns a token only if all of them are true:
           matrix.quicklisp-dist == 'ultralisp' &&
           secrets.github_token }}
 ```
-
 Here is an example how your report on Coveralls can look like:
 
 https://coveralls.io/github/40ants/cl-info
 
-**Note**, that coverage reporting currently works only on SBCL and CCL 1.4.
+Note, that coverage reporting currently works only on `SBCL` and `CCL` 1.4.
 You can contribute support for other implementations to
-[cl-coveralls](https://github.com/fukamachi/cl-coveralls).
+[cl-coveralls][9031].
 
-<a id='x-28DOCS-3A-40ROADMAP-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29'></a>
+<a id="x-28DOCS-2FDOCS-3A-3A-40ROADMAP-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
-## 5 Roadmap
+## Roadmap
 
-- Support uploading code coverage reports to CodeCov.
+* Support uploading code coverage reports to CodeCov.
 
-- Vendor all dependencies, to make action more reliable and secure.
+* Vendor all dependencies, to make action more reliable and secure.
 
 
-  [0187]: #x-28DOCS-3A-40ROADMAP-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29 "Roadmap"
-  [3b34]: #x-28DOCS-3A-40TYPICAL-USAGE-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29 "A typical usage"
-  [a4be]: #x-28DOCS-3A-40FEATURES-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29 "What this action does for you?"
-  [ae7a]: #x-28DOCS-3A-40COVERALLS-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29 "Publishing reports to Coveralls"
-  [edba]: #x-28DOCS-3A-40CUSTOM-TEST-RUNNER-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29 "Custom test runner"
+[8de1]: https://40ants.com/setup-lisp/
+[b60c]: https://coveralls.io/
+[9031]: https://github.com/fukamachi/cl-coveralls
 
 * * *
-###### \[generated by [40ANTS-DOC](https://40ants.com/doc)\]
+###### [generated by [40ANTS-DOC](https://40ants.com/doc/)]
