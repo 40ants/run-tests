@@ -70,8 +70,8 @@ will check `${asdf-system}-test`, `${asdf-system}-tests`,
 `${asdf-system}/test` and `${asdf-system}/tests`. And if none
 of them found - fall back to `${asdf-system}`.
 
-Please, note, that `(asdf:test-system :your-system-name)`
-should signal error in case if some tests were failed. Only
+**Please, note, that `(asdf:test-system :your-system-name)`
+should signal error in case if some tests were failed.** Only
 in this case action will exit with error code.
 
 <a id="x-28DOCS-2FDOCS-3A-3A-40CUSTOM-TEST-RUNNER-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
@@ -124,7 +124,7 @@ Here is an example how your report on Coveralls can look like:
 
 https://coveralls.io/github/40ants/cl-info
 
-Note, that coverage reporting currently works only on `SBCL` and `CCL` 1.4.
+**Note**, that coverage reporting currently works only on `SBCL` and `CCL` 1.4.
 You can contribute support for other implementations to
 [cl-coveralls][9031].
 
