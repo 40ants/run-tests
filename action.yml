@@ -13,11 +13,9 @@ inputs:
 
 runs:
   using: composite
-  defaults:
-      run:
-        shell: lispsh -eo pipefail {0}
   steps:
     - name: Install cl-coveralls
+      shell: lispsh -eo pipefail {0}
       run: |
         echo '::group::Installing cl-coveralls'
         # Until this pull merged:
@@ -27,6 +25,7 @@ runs:
         echo '::endgroup::'
 
     - name: Run Tests
+      shell: lispsh -eo pipefail {0}
       run: |
         qlot exec ${{ github.action_path }}/run-tests.ros ${{ inputs.asdf-system }} <<EOF
         ${{ inputs.run-tests }}
