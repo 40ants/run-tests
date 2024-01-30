@@ -11,9 +11,7 @@ It should be used after the [setup-lisp][8de1] action.
 ## What this action does for you?
 
 * It runs (asdf:test-system :the-system-name) by default.
-
 * But you can provide your own lisp code.
-
 * It automatically searches a test system name if it is present.
 
 <a id="x-28DOCS-2FDOCS-3A-3A-40TYPICAL-USAGE-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
@@ -133,7 +131,6 @@ You can contribute support for other implementations to
 ## Roadmap
 
 * Support uploading code coverage reports to CodeCov.
-
 * Vendor all dependencies, to make action more reliable and secure.
 
 
