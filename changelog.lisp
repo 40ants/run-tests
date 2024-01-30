@@ -8,7 +8,7 @@
 (defchangelog (:ignore-words ("CLISP"
                               "CFFI"
                               "FFI"))
-  (2.2.0 "
+  (2.2.0 2024-01-30 "
 * Shell, used to run all commands was changed from bash to `lispsh -eo pipefail {0}`. This fixes runner for Windows.
 * Documentation builder workflow switched from `actions/checkout@v3` to `v4` version.")
   (2.1.2 2021-02-25
