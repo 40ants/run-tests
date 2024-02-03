@@ -72,6 +72,12 @@ exec ros -Q -- $0 "$@"
                 ""))
 
     (format t "Qlot dir:~%~A~%" (ql:where-is-system :qlot))
+    (format t "Qlot version:~%~A~%"
+            (uiop:run-program "qlot --version"
+                              :output '(:string :stripped t)
+                              :error-output :output
+                              :ignore-error-status t))
+    
     (format t "Current directory:~%~A~%" (uiop:getcwd))
     (format t "Current directory content:~%~A~%"
             (directory (merge-pathnames "*.*" (uiop:getcwd))))
@@ -86,10 +92,10 @@ exec ros -Q -- $0 "$@"
     (loop for registry in asdf/source-registry:*default-source-registries*
           for content = (funcall registry)
           do (format t "~A:~%~A~%"
-                       registry
-                       (if content
-                           content
-                           "Empty")))
+                     registry
+                     (if content
+                         content
+                         "Empty")))
     
     
     ;; Without this random state initialization
