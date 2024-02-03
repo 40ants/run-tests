@@ -71,6 +71,9 @@ exec ros -Q -- $0 "$@"
             (or system
                 ""))
 
+    (format t "Known quicklisp dists:~%~A~%" (ql-dist:all-dists))
+    (format t "Current directory:~%~A~%" (uiop:getcwd))
+
     ;; Without this random state initialization
     ;; subsequent runs of the script will generate the same
     ;; "random" temprorary directory for coverage data:
