@@ -66,36 +66,40 @@ exec ros -Q -- $0 "$@"
 
 
 (defun main (&rest args)
-  (let ((system (first args)))
+  (let ((system (first args))
+        (verbose (string-equal (or (uiop:getenv "VERBOSE")
+                                   "")
+                               "true")))
     (format t "::group::Running tests for ASDF system ~S~%"
             (or system
                 ""))
 
-    (format t "Qlot dir:~%~A~%" (ql:where-is-system :qlot))
-    (format t "Qlot version:~%~A~%"
-            (uiop:run-program "qlot --version"
-                              :output '(:string :stripped t)
-                              :error-output :output
-                              :ignore-error-status t))
+    (when verbose
+      (format t "Qlot dir:~%~A~%" (ql:where-is-system :qlot))
+      (format t "Qlot version:~%~A~%"
+              (uiop:run-program "qlot --version"
+                                :output '(:string :stripped t)
+                                :error-output :output
+                                :ignore-error-status t))
     
-    (format t "Current directory:~%~A~%" (uiop:getcwd))
-    (format t "Current directory content:~%~A~%"
-            (directory (merge-pathnames "*.*" (uiop:getcwd))))
+      (format t "Current directory:~%~A~%" (uiop:getcwd))
+      (format t "Current directory content:~%~A~%"
+              (directory (merge-pathnames "*.*" (uiop:getcwd))))
     
-    (format t "Known quicklisp dists:~%~A~%" (ql-dist:all-dists))
-    (format t "ASDF central registry:~%~A~%" asdf:*central-registry*)
-    (format t "CL_SOURCE_REGISTRY:~%~A~%" (uiop:getenv "CL_SOURCE_REGISTRY"))
-    (format t "ASDF default source registries:~%~A~%"
-            asdf/source-registry:*default-source-registries*)
+      (format t "Known quicklisp dists:~%~A~%" (ql-dist:all-dists))
+      (format t "ASDF central registry:~%~A~%" asdf:*central-registry*)
+      (format t "CL_SOURCE_REGISTRY:~%~A~%" (uiop:getenv "CL_SOURCE_REGISTRY"))
+      (format t "ASDF default source registries:~%~A~%"
+              asdf/source-registry:*default-source-registries*)
 
-    (format t "ASDF source registries:~%")
-    (loop for registry in asdf/source-registry:*default-source-registries*
-          for content = (funcall registry)
-          do (format t "~A:~%~A~%"
-                     registry
-                     (if content
-                         content
-                         "Empty")))
+      (format t "ASDF source registries:~%")
+      (loop for registry in asdf/source-registry:*default-source-registries*
+            for content = (funcall registry)
+            do (format t "~A:~%~A~%"
+                       registry
+                       (if content
+                           content
+                           "Empty"))))
     
     
     ;; Without this random state initialization
