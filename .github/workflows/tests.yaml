@@ -1,0 +1,43 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  schedule:
+    - cron: "0 0 * * SUN"
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: false # Let the workflow continue as much as possible
+      matrix:
+        include:
+          - os: ubuntu-latest
+            lisp: sbcl-bin
+    defaults:
+      run:
+        shell: lispsh -eo pipefail {0}
+    env:
+      LISP: ${{ matrix.lisp }}
+    name: test with ${{ matrix.lisp }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The repo already contains the qlot and qlot.lock files, and since
+          # we don't want those to interfere with the current test run, we
+          # clone the repository somewhere else (i.e. something different from
+          # the default './')
+          path: run-tests
+      - uses: 40ants/setup-lisp@v2
+        with:
+          asdf-system: cl-info
+      - name: Call run-tests
+        uses: ./run-tests/
+        with:
+          verbose: true
+          asdf-system: cl-info
+
