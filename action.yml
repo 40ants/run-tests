@@ -10,6 +10,9 @@ inputs:
   coveralls-token:
     description: Set this token to upload code coverage results to Coveralls
     required: false
+  verbose:
+    description: Set this to "true" to get more verbose output about ASDF registry, Qlot version, etc.
+    required: false
 
 runs:
   using: composite
@@ -32,3 +35,4 @@ runs:
         EOF
       env:
         COVERALLS_REPO_TOKEN: "${{ inputs.coveralls-token }}"
+        VERBOSE: "${{ inputs.verbose }}"
