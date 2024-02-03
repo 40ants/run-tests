@@ -71,11 +71,26 @@ exec ros -Q -- $0 "$@"
             (or system
                 ""))
 
-    (format t "Known quicklisp dists:~%~A~%" (ql-dist:all-dists))
     (format t "Current directory:~%~A~%" (uiop:getcwd))
     (format t "Current directory content:~%~A~%"
             (directory (merge-pathnames "*" (uiop:getcwd))))
+    
+    (format t "Known quicklisp dists:~%~A~%" (ql-dist:all-dists))
+    (format t "ASDF central registry:~%~A~%" asdf:*central-registry*)
+    (format t "CL_SOURCE_REGISTRY:~%~A~%" (uiop:getenv "CL_SOURCE_REGISTRY"))
+    (format t "ASDF default source registries:~%~A~%"
+            asdf/source-registry:*default-source-registries*)
 
+    (format t "ASDF source registries:~%")
+    (loop for registry in asdf/source-registry:*default-source-registries*
+          for content = (funcall registry)
+          do (format t "~A:~%~A~%"
+                       registry
+                       (if content
+                           content
+                           "Empty")))
+    
+    
     ;; Without this random state initialization
     ;; subsequent runs of the script will generate the same
     ;; "random" temprorary directory for coverage data:
