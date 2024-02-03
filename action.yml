@@ -27,7 +27,7 @@ runs:
     - name: Run Tests
       shell: lispsh -eo pipefail {0}
       run: |
-        qlot exec ${{ github.action_path }}/run-tests.ros ${{ inputs.asdf-system }} <<EOF
+        CL_SOURCE_REGISTRY=`pwd`/ qlot exec ${{ github.action_path }}/run-tests.ros ${{ inputs.asdf-system }} <<EOF
         ${{ inputs.run-tests }}
         EOF
       env:
