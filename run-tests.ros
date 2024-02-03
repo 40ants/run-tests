@@ -71,6 +71,7 @@ exec ros -Q -- $0 "$@"
             (or system
                 ""))
 
+    (format t "Qlot dir:~%~A~%" (ql:where-is-system :qlot))
     (format t "Current directory:~%~A~%" (uiop:getcwd))
     (format t "Current directory content:~%~A~%"
             (directory (merge-pathnames "*.*" (uiop:getcwd))))
