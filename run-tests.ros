@@ -73,7 +73,7 @@ exec ros -Q -- $0 "$@"
 
     (format t "Current directory:~%~A~%" (uiop:getcwd))
     (format t "Current directory content:~%~A~%"
-            (directory (merge-pathnames "*" (uiop:getcwd))))
+            (directory (merge-pathnames "*.*" (uiop:getcwd))))
     
     (format t "Known quicklisp dists:~%~A~%" (ql-dist:all-dists))
     (format t "ASDF central registry:~%~A~%" asdf:*central-registry*)
