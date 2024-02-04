@@ -30,9 +30,13 @@ runs:
     - name: Run Tests
       shell: lispsh -eo pipefail {0}
       run: |
+        echo '::group::Running tests'
+        
         CL_SOURCE_REGISTRY=`pwd`/ qlot exec ${{ github.action_path }}/run-tests.ros ${{ inputs.asdf-system }} <<EOF
         ${{ inputs.run-tests }}
         EOF
+        
+        echo '::endgroup::'
       env:
         COVERALLS_REPO_TOKEN: "${{ inputs.coveralls-token }}"
         VERBOSE: "${{ inputs.verbose }}"
