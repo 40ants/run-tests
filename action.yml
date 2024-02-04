@@ -10,6 +10,9 @@ inputs:
   coveralls-token:
     description: Set this token to upload code coverage results to Coveralls
     required: false
+  verbose:
+    description: Set this to "true" to get more verbose output about ASDF registry, Qlot version, etc.
+    required: false
 
 runs:
   using: composite
@@ -27,8 +30,13 @@ runs:
     - name: Run Tests
       shell: lispsh -eo pipefail {0}
       run: |
-        qlot exec ${{ github.action_path }}/run-tests.ros ${{ inputs.asdf-system }} <<EOF
+        echo '::group::Running tests'
+        
+        CL_SOURCE_REGISTRY=`pwd`/ qlot exec ${{ github.action_path }}/run-tests.ros ${{ inputs.asdf-system }} <<EOF
         ${{ inputs.run-tests }}
         EOF
+        
+        echo '::endgroup::'
       env:
         COVERALLS_REPO_TOKEN: "${{ inputs.coveralls-token }}"
+        VERBOSE: "${{ inputs.verbose }}"
