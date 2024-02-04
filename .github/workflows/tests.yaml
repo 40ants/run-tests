@@ -39,5 +39,5 @@ jobs:
         uses: ./run-tests/
         with:
           verbose: true
-          asdf-system: log4cl-json-test
+          asdf-system: log4cl-extras
 
