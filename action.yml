@@ -17,6 +17,9 @@ runs:
     - name: Show PATH
       shell: bash
       run: echo $PATH
+    - name: What is inside /mingw64/bin
+      shell: bash
+      run: ls -l /mingw64/bin
     - name: Install cl-coveralls
       # shell: lispsh -eo pipefail {0}
       shell: bash
