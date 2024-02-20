@@ -14,6 +14,9 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Show PATH
+      shell: bash
+      run: echo $PATH
     - name: Install cl-coveralls
       # shell: lispsh -eo pipefail {0}
       shell: bash
