@@ -32,8 +32,8 @@ runs:
         echo '::endgroup::'
 
     - name: Run Tests
-      # shell: lispsh -eo pipefail {0}
-      shell: bash
+      shell: lispsh -eo pipefail {0}
+      # shell: bash
       run: |
         qlot exec ${{ github.action_path }}/run-tests.ros ${{ inputs.asdf-system }} <<EOF
         ${{ inputs.run-tests }}
