@@ -7,7 +7,13 @@
 
 (defchangelog (:ignore-words ("CLISP"
                               "CFFI"
+                              "ASDF"
+                              "CL_SOURCE_REGISTRY"
                               "FFI"))
+  (2.3.0 2024-02-03
+         "
+* Separate \"verbose\" input was added to output additional information about ASDF registry and Qlot.
+* Now action can work with latest Qlot, which does not set CL_SOURCE_REGISTRY to the current directory.")
   (2.2.0 2024-01-30 "
 * Shell, used to run all commands was changed from bash to `lispsh -eo pipefail {0}`. This fixes runner for Windows.
 * Documentation builder workflow switched from `actions/checkout@v3` to `v4` version.")
