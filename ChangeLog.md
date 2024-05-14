@@ -2,6 +2,12 @@
 
 # ChangeLog
 
+<a id="x-28DOCS-2FCHANGELOG-3A-3A-7C2-2E3-2E0-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
+
+## 2.3.0 (2024-05-13)
+
+* Now run-tests catches `SERIOUS-CONDITION` instead of `ERROR` and prevents handing of tests in the interactive prompt and timeouts on `ECL`.
+
 <a id="x-28DOCS-2FCHANGELOG-3A-3A-7C2-2E2-2E0-7C-2040ANTS-DOC-2FLOCATIVES-3ASECTION-29"></a>
 
 ## 2.2.0 (2024-01-30)
