@@ -79,9 +79,10 @@ exec ros -Q -- $0 "$@"
 
     (unwind-protect
          (handler-bind
-             ((error (lambda (condition)
-                       (trivial-backtrace:print-backtrace condition)
-                       (uiop:quit 3))))
+             ((serious-condition
+                (lambda (condition)
+                  (trivial-backtrace:print-backtrace condition)
+                  (uiop:quit 3))))
            (when (or (null system)
                      (string= system ""))
              (format *error-output*
