@@ -79,7 +79,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - uses: 40ants/setup-lisp@v1
+      - uses: 40ants/setup-lisp@v4
         with:
           asdf-system: cl-info
       - uses: 40ants/run-tests@v2
