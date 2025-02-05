@@ -30,6 +30,9 @@ exec ros -Q -- $0 "$@"
 
 (defun guess-test-system-name (primary-system-name)
   (check-type primary-system-name string)
+  (format t "TRACE: Guessing test system name for ~A~%"
+          primary-system-name)
+  
   (loop for template in *test-system-name-templates*
         for system-name = (format nil template
                                   primary-system-name)
@@ -50,6 +53,9 @@ exec ros -Q -- $0 "$@"
 
   (let ((test-system-name
           (guess-test-system-name primary-system-name)))
+    (format t "TRACE: guessed test system name is ~A~%"
+            test-system-name)
+    
     (ql:quickload test-system-name
                   :silent t)
     ;; ASDF:TEST-SYSTEM always returns T
