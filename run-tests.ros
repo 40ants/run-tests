@@ -95,9 +95,19 @@ exec ros -Q -- $0 "$@"
                      "Please specify ASDF system as a first argument.~%")
              (uiop:quit 1))
            
-           (let* ((user-script (unless (interactive-stream-p *standard-input*)
-                                 (format t "TRACE: reading user-script~%")
-                                 (uiop:slurp-stream-forms *standard-input*)))
+           (let* ((user-script-as-str
+                    (unless (interactive-stream-p *standard-input*)
+                      (format t "TRACE: reading user-script~%")
+                      (let* ((raw (uiop:slurp-stream-string *standard-input*))
+                             (stripped (string-trim '(#\Newline #\Space #\Tab)
+                                                    raw)))
+                        (unless (zerop (length stripped))
+                          stripped))))
+                  (user-script 
+                    (when user-script-as-str
+                      (let ((stream (make-string-input-stream user-script-as-str)))
+                        (uiop:with-safe-io-syntax ()
+                          (uiop:slurp-stream-forms stream)))))
                   (coveralls-repo-token
                     (let* ((value (uiop:getenv "COVERALLS_REPO_TOKEN"))
                            ;; Sometimes user might want to use multiline
@@ -129,7 +139,7 @@ exec ros -Q -- $0 "$@"
                         (cond
                           (user-script
                            (format t "TRACE: processing user-script:~%~S~%"
-                                   user-script)
+                                   user-script-as-str)
                            (loop with form-results
                                  for form in user-script
                                  do (setf form-results
