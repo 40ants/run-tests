@@ -97,7 +97,7 @@ exec ros -Q -- $0 "$@"
            
            (let* ((user-script-as-str
                     (unless (interactive-stream-p *standard-input*)
-                      (format t "TRACE: reading user-script~%")
+                      (format t "TRACE: reading user-script from standard input~%")
                       (let* ((raw (uiop:slurp-stream-string *standard-input*))
                              (stripped (string-trim '(#\Newline #\Space #\Tab)
                                                     raw)))
@@ -105,6 +105,8 @@ exec ros -Q -- $0 "$@"
                           stripped))))
                   (user-script 
                     (when user-script-as-str
+                      (format t "TRACE: parsing this user-input:~%~A~%"
+                              user-script-as-str)
                       (let ((stream (make-string-input-stream user-script-as-str)))
                         (uiop:with-safe-io-syntax ()
                           (uiop:slurp-stream-forms stream)))))
