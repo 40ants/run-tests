@@ -111,24 +111,30 @@ exec ros -Q -- $0 "$@"
                         (uiop:with-safe-io-syntax ()
                           (uiop:slurp-stream-forms stream)))))
                   (coveralls-repo-token
-                    (let* ((value (uiop:getenv "COVERALLS_REPO_TOKEN"))
-                           ;; Sometimes user might want to use multiline
-                           ;; YAML format to make expression more readable.
-                           ;; In this case the value might contain hanging
-                           ;; spaces and new-lines.
-                           (value (string-trim '(#\Newline #\Space) value)))
-                      (cond
-                        ((or (null value)
-                             ;; When using GH Actions expressions like:
-                             ;; ${{ matrix.lisp == 'sbcl-bin' && secrets.github_token }}
-                             ;; the value will be 'false' for any lisp other than 'sbcl-bin'
-                             (string-equal value "false")
-                             (string-equal value ""))
-                         nil)
-                        (t value))))
+                    (progn
+                      (format t "TRACE: makeing coveralls repo token~%")
+                      
+                      (let* ((value (uiop:getenv "COVERALLS_REPO_TOKEN"))
+                             ;; Sometimes user might want to use multiline
+                             ;; YAML format to make expression more readable.
+                             ;; In this case the value might contain hanging
+                             ;; spaces and new-lines.
+                             (value (string-trim '(#\Newline #\Space) value)))
+                        (cond
+                          ((or (null value)
+                               ;; When using GH Actions expressions like:
+                               ;; ${{ matrix.lisp == 'sbcl-bin' && secrets.github_token }}
+                               ;; the value will be 'false' for any lisp other than 'sbcl-bin'
+                               (string-equal value "false")
+                               (string-equal value ""))
+                           nil)
+                          (t value)))))
                   (result
                     (progn
+                      (format t "TRACE: makign result 1~%")
+                      
                       (when coveralls-repo-token
+                        (format t "TRACE: makign result 2~%")
                         ;; This will enable data collection
                         ;; inside with-coveralls:
                         (setf (uiop:getenv "COVERALLS")
@@ -137,7 +143,9 @@ exec ros -Q -- $0 "$@"
                         (setf (uiop:getenv "COVERALLS_REPO_TOKEN")
                               coveralls-repo-token))
 
+                      (format t "TRACE: makign result 3~%")
                       (with-coveralls (:exclude (list ".qlot/"))
+                        (format t "TRACE: makign result 4~%")
                         (cond
                           (user-script
                            (format t "TRACE: processing user-script:~%~S~%"
