@@ -96,6 +96,7 @@ exec ros -Q -- $0 "$@"
              (uiop:quit 1))
            
            (let* ((user-script (unless (interactive-stream-p *standard-input*)
+                                 (format t "TRACE: reading user-script~%")
                                  (uiop:slurp-stream-forms *standard-input*)))
                   (coveralls-repo-token
                     (let* ((value (uiop:getenv "COVERALLS_REPO_TOKEN"))
@@ -127,6 +128,8 @@ exec ros -Q -- $0 "$@"
                       (with-coveralls (:exclude (list ".qlot/"))
                         (cond
                           (user-script
+                           (format t "TRACE: processing user-script:~%~S~%"
+                                   user-script)
                            (loop with form-results
                                  for form in user-script
                                  do (setf form-results
@@ -134,6 +137,8 @@ exec ros -Q -- $0 "$@"
                                  finally (return form-results)))
                           ;; default tests runner
                           (t
+                           (format t "TRACE: running tests for system \"~A\"~%"
+                                   system)
                            (run-tests system)))))))
              (unless result
                (uiop:quit 2))))
