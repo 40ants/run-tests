@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<rss version="2.0">
+    <channel>
+        <title>docs ChangeLog</title>
+        <link>https://40ants.com/run-tests/</link>
+        <generator>xml-emitter</generator>
+        <language>en-us</language>
+        <item>
+            <title>2.3.0  (2024-05-13)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Now run-tests catches &lt;code&gt;SERIOUS-CONDITION&lt;/code&gt; instead of &lt;code&gt;ERROR&lt;/code&gt; and prevents handing of tests in the interactive prompt and timeouts on &lt;code&gt;ECL&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Mon, 13 May 2024 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>2.2.0  (2024-01-30)</title>
+            <description>&lt;ul&gt;&lt;li&gt;&lt;p&gt;Shell, used to run all commands was changed from bash to &lt;code&gt;lispsh -eo pipefail {0}&lt;/code&gt;. This fixes runner for Windows.&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;Documentation builder workflow switched from &lt;code&gt;actions/checkout@v3&lt;/code&gt; to &lt;code&gt;v4&lt;/code&gt; version.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</description>
+            <pubDate>Tue, 30 Jan 2024 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>2.1.2  (2021-02-25)</title>
+            <description>&lt;p&gt;Run tests under the qlot.
+This fixes test running when Roswell and Qlot are restored from cache.&lt;/p&gt;</description>
+            <pubDate>Thu, 25 Feb 2021 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>2.1.1  (2021-02-19)</title>
+            <description>&lt;p&gt;Fixed test running on &lt;code&gt;CLISP&lt;/code&gt; where cl-coveralls installation
+fails with error: &lt;code&gt;CFFI requires CLISP compiled with dynamic FFI support&lt;/code&gt;.&lt;/p&gt;</description>
+            <pubDate>Fri, 19 Feb 2021 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>2.1.0  (2021-02-18)</title>
+            <description>&lt;p&gt;Now it is possible to conditionally select if coverage
+report should be generated.&lt;/p&gt;</description>
+            <pubDate>Thu, 18 Feb 2021 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>2.0.1  (2021-02-18)</title>
+            <description>&lt;p&gt;Fixed issue when tests were run always on sbcl-bin implementation.&lt;/p&gt;</description>
+            <pubDate>Thu, 18 Feb 2021 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>2.0.0  (2021-02-18)</title>
+            <description>&lt;p&gt;Added Coveralls support.&lt;/p&gt;</description>
+            <pubDate>Thu, 18 Feb 2021 00:00:00 +0000</pubDate>
+        </item>
+        <item>
+            <title>1.0.0  (2021-01-07)</title>
+            <description>&lt;p&gt;Initial release.&lt;/p&gt;</description>
+            <pubDate>Thu, 07 Jan 2021 00:00:00 +0000</pubDate>
+        </item>
+    </channel>
+</rss>
